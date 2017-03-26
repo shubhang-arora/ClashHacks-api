@@ -11,7 +11,7 @@ $api->version('v1', function ($api) {
 
 	$api->post('/register_mrz','App\Api\V1\Controllers\CustomController@register_mrz');
 	$api->post('/submit_mrz','App\Api\V1\Controllers\CustomController@submit_mrz');
-	$api->post('/data','App\Api\V1\Controllers\CustomController@data');
+
 
 	// example of protected route
 	$api->get('protected', ['middleware' => ['api.auth'], function () {		
