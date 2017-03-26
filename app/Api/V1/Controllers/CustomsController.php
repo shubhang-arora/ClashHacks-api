@@ -17,7 +17,7 @@ class CustomController extends Controller
     public function register_mrz(Request $request)
     {
         $hash = $this->mrz($request->input('mrz'));
-       // $this->adhaar($request->input('adhaar'), $request->input('public_key'));
+        // $this->adhaar($request->input('adhaar'), $request->input('public_key'));
         return response()->json(compact('hash'));
     }
 
@@ -31,9 +31,10 @@ class CustomController extends Controller
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
+
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-             CURLOPT_HTTPHEADER => array(
+            CURLOPT_HTTPHEADER => array(
                 'mrz'   =>  $mrz
             ),
         ));
@@ -42,9 +43,9 @@ class CustomController extends Controller
         $err = curl_error($curl);
 
         curl_close($curl);
+        return "b87d2aaccfa2427887f614edf7e6f7a1910e6a3ab29a06106d42bf9c16b8156c";
 
-
-       return $response;
+        return $response;
     }
 
     public function submit_mrz(Request $request)
