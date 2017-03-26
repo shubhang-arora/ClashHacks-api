@@ -9,7 +9,9 @@ $api->version('v1', function ($api) {
 	$api->post('auth/recovery', 'App\Api\V1\Controllers\AuthController@recovery');
 	$api->post('auth/reset', 'App\Api\V1\Controllers\AuthController@reset');
 
-	$api->post('/register','App\Api\V1\Controllers\CustomController@register');
+	$api->post('/register_mrz','App\Api\V1\Controllers\CustomController@register_mrz');
+	$api->post('/submit_mrz','App\Api\V1\Controllers\CustomController@submit_mrz');
+	$api->post('/data','App\Api\V1\Controllers\CustomController@data');
 
 	// example of protected route
 	$api->get('protected', ['middleware' => ['api.auth'], function () {		

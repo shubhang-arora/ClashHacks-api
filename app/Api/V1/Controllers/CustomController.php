@@ -14,26 +14,69 @@ class CustomController extends Controller
 {
     use Helpers;
 
-    public function register(Request $request)
+    public function register_mrz(Request $request)
     {
-        $this->mrz($request->input('mrz'), $request->input('public_key'));
-        $this->adhaar($request->input('adhaar'), $request->input('public_key'));
-        return $this->response->created();
+        $hash = $this->mrz($request->input('mrz'));
+       // $this->adhaar($request->input('adhaar'), $request->input('public_key'));
+        return response()->json(compact('hash'));
     }
 
-    private function mrz($mrz, $public_key)
+    private function mrz($mrz)
     {
-        Passport::create([
-           'public_key' =>  $public_key,
-            'hash'  =>  "hash",
-            'mrz'   =>  $mrz
-        ]);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_PORT => "5000",
+            CURLOPT_URL => "http://localhost:5000/hashmrz",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+             CURLOPT_HTTPHEADER => array(
+                'mrz'   =>  $mrz
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+
+       return $response;
+    }
+
+    public function submit_mrz(Request $request)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_PORT => "5000",
+            CURLOPT_URL => "http://localhost:5000/submitpassporttochain",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_HTTPHEADER => array(
+                'passport'  =>  $request->input('passport'),
+                'public_key'    =>  $request->input('public_key'),
+                'signature' =>  $request->input('signature')
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        return $this->response()->created();
     }
 
     private function adhaar($adhaar, $public_key)
     {
         Adhaar::create([
-            'u_id'   =>  $adhaar,
             'public_key'    =>  $public_key,
             'hash'  =>  'hash'
         ]);
@@ -41,12 +84,8 @@ class CustomController extends Controller
 
 
 
-    /*
-     * Third party handshake
-     */
-    public function verify_me(Request $request)
-    {
 
-    }
+
+
 
 }

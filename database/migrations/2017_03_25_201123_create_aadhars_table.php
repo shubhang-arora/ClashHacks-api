@@ -14,7 +14,6 @@ class CreateAadharsTable extends Migration
     {
         Schema::create('aadhars', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('u_id')->unique();
             $table->string('public_key');
             $table->string('hash');
             $table->timestamps();

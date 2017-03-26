@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Adhaar extends Model
 {
     protected $fillable = [
-        'mrz',
+        'signature',
         'public_key',
         'hash'
     ];

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Passport extends Model
 {
     protected $fillable = [
-        'u_id',
+        'signature',
         'public_key',
         'hash'
     ];

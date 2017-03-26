@@ -16,7 +16,6 @@ class CreatePassportsTable extends Migration
             $table->increments('id');
             $table->string('public_key');
             $table->string('hash');
-            $table->string('mrz')->unique();
             $table->timestamps();
         });
     }
