@@ -14,17 +14,9 @@ class CreatePassportsTable extends Migration
     {
         Schema::create('passports', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('p_id');
-            $table->string('s_id');
-            $table->string('issuer');
-            $table->string('nationality');
-            $table->date('dob');
-            $table->string('sex');
-            $table->date('doe');
-            $table->string('opt1');
-            $table->string('opt2');
-            $table->string('mrz');
-            $table->string('d_code')->unique();
+            $table->string('public_key');
+            $table->string('hash');
+            $table->string('mrz')->unique();
             $table->timestamps();
         });
     }

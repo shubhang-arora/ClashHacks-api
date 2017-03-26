@@ -15,15 +15,8 @@ class CreateAadharsTable extends Migration
         Schema::create('aadhars', function (Blueprint $table) {
             $table->increments('id');
             $table->string('u_id')->unique();
-            $table->string('name');
-            $table->string('dob');
-            $table->string('gender');
-            $table->text('address');
-            $table->string('relation');
-            $table->string('r_name');
-            $table->string('city');
-            $table->string('state');
-            $table->string('pin_code');
+            $table->string('public_key');
+            $table->string('hash');
             $table->timestamps();
         });
     }
