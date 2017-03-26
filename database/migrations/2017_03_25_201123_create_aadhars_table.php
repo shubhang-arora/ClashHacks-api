@@ -14,10 +14,9 @@ class CreateAadharsTable extends Migration
     {
         Schema::create('aadhars', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('aadhar_num');
+            $table->string('u_id')->unique();
             $table->string('name');
-            $table->string('phone')->unique();
-            $table->date('dob');
+            $table->string('dob');
             $table->string('gender');
             $table->text('address');
             $table->string('relation');

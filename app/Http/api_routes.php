@@ -9,7 +9,8 @@ $api->version('v1', function ($api) {
 	$api->post('auth/recovery', 'App\Api\V1\Controllers\AuthController@recovery');
 	$api->post('auth/reset', 'App\Api\V1\Controllers\AuthController@reset');
 
-	$api->get('aadhar/phone/{phone}','App\Api\V1\Controllers\AadharController@phone');
+	$api->post('/register','App\Api\V1\Controllers\CustomController@register');
+
 	// example of protected route
 	$api->get('protected', ['middleware' => ['api.auth'], function () {		
 		return \App\User::all();
